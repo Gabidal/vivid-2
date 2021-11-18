@@ -35,18 +35,19 @@ load(bundle: Bundle) {
 	if object.empty => Status('Please enter input files')
 	
 	filenames = object.value as List<String>
-	files = Array<SourceFile>(filenames.size)
+	result = Array<SourceFile>(filenames.size)
 
-	loop (i = 0, i < files.count, i++) {
-		filename = filenames[i]
+	# loop (i = 0, i < files.count, i++) {
+	# 	filename = filenames[i]
 
-		bytes = io.read_file(filename)
-		if bytes.empty => Status((String('Could not load file ') + filename).text)
+	# 	bytes = io.read_file(filename)
+	# 	if bytes.empty => Status((String('Could not load file ') + filename).text)
 
-		content = String(bytes.value.data, bytes.value.count).replace(`\r`, ` `).replace(`\t`, ` `)
-		files[i] = SourceFile(filename, content, i)
-	}
+	# 	content = String(bytes.value.data, bytes.value.count).replace(`\r`, ` `).replace(`\t`, ` `)
+	# 	result[i] = SourceFile(filename, content, i)
+	# }
 
-	bundle.put(String(BUNDLE_FILES), files as link)
+	#Output the result of files into the Bundle system.
+	bundle.put(String(BUNDLE_FILES), result as link)
 	=> Status()
 }
